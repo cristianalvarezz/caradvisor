@@ -1,6 +1,3 @@
-//MD8io0JIY4EuLkBq
-//christian
-
 const express = require('express');
 const { dbConnection } = require('./database/config')
     //variables de entorno
@@ -20,6 +17,7 @@ app.use(express.json())
 dbConnection();
 
 // Rutas
+app.use('/api/usuarios', require('./routes/usuarios'));
 
 app.listen(process.env.PORT, () => {
     console.log('Servidor corriendo el puerto ' + process.env.PORT)
