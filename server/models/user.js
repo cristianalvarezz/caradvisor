@@ -1,9 +1,13 @@
 const { Schema, model } = require('mongoose');
 
 
-const UsuarioSchema = Schema({
+const UserSchema = Schema({
 
-    nombre: {
+    name: {
+        type: String,
+        required: true
+    },
+    phone: {
         type: String,
         required: true
     },
@@ -32,7 +36,7 @@ const UsuarioSchema = Schema({
 
 
 //sobre escribo el metodo 
-UsuarioSchema.method('toJSON', function() {
+UserSchema.method('toJSON', function() {
 
     //del objeto estraido la version y assword y el resto de las propiedades
     //de esta manera no regresare el password
@@ -43,4 +47,4 @@ UsuarioSchema.method('toJSON', function() {
 
 
 
-module.exports = model('Usuario', UsuarioSchema);
+module.exports = model('User', UserSchema);

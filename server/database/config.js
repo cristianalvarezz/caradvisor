@@ -11,10 +11,10 @@ const dbConnection = async() => {
             useUnifiedTopology: true,
             useCreateIndex: true,
         });
-        console.log('Base de datos Online')
+        console.log('Online database')
     } catch (error) {
         console.log(error)
-        throw new Error('Error a la hora de levantar la base de datos ')
+        throw new Error('Failed to lift the database')
     }
 
 };
