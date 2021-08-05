@@ -4,10 +4,10 @@ const User = require('../models/user');
 
 const validateJWT = (req, res, next) => {
 
-    // Leer el Token
+    // read the  Token
     const token = req.header('x-token');
 
-    //verifico el token en este punto 
+    // I check the json web token
     if (!token) {
         return res.status(401).json({
             ok: false,
@@ -15,9 +15,9 @@ const validateJWT = (req, res, next) => {
         });
     }
 
-    //verifico el json web token 
+    // I check the json web token
     try {
-        //esto intentara comprboar el ide con el token y la firma 
+        // this will try to check the ide with the token and the signature
         const { uid } = jwt.verify(token, process.env.JWT_SECRET);
         req.uid = uid;
 
@@ -31,25 +31,25 @@ const validateJWT = (req, res, next) => {
     }
 
 }
-const varlidarADMIN_ROLE = async(req, res, next) => {
+const varlidateADMIN_ROLE = async(req, res, next) => {
 
     const uid = req.uid;
 
     try {
 
-        const usuarioDB = await User.findById(uid);
+        const userDB = await User.findById(uid);
 
-        if (!usuarioDB) {
+        if (!userDB) {
             return res.status(404).json({
                 ok: false,
-                msg: 'Usuario no existe'
+                msg: 'User does not exist'
             });
         }
 
-        if (usuarioDB.role !== 'ADMIN_ROLE') {
+        if (userDB.role !== 'ADMIN_ROLE') {
             return res.status(403).json({
                 ok: false,
-                msg: 'No tiene privilegios para hacer eso'
+                msg: 'You dont have the privilege of doing that'
             });
         }
 
@@ -60,46 +60,46 @@ const varlidarADMIN_ROLE = async(req, res, next) => {
         console.log(error);
         res.status(500).json({
             ok: false,
-            msg: 'Hable con el administrador'
+            msg: 'Talk to the administrator'
         })
     }
 
 }
 
-//esto va a impedir a un usuario no administrador borre otros usuarios 
-const varlidarADMIN_ROLE_o_MismoUsuario = async(req, res, next) => {
+// this will prevent a non-administrator user from deleting other users 
+const varlidateADMIN_ROLE_or_sameUser = async(req, res, next) => {
 
-    //si estos dos llegan a ser iguales quiere decir que es un usuario que intenta actualizarse a si mismo 
+    // if these two become the same it means that it is a user trying to update itself
     const uid = req.uid;
     const id = req.params.id;
 
     try {
 
-        const usuarioDB = await User.findById(uid);
+        const userDB = await User.findById(uid);
 
-        if (!usuarioDB) {
+        if (!userDB) {
             return res.status(404).json({
                 ok: false,
-                msg: 'Usuario no existe'
+                msg: 'User does not exist'
             });
         }
 
-        if (usuarioDB.role === 'ADMIN_ROLE' || uid === id) {
+        if (userDB.role === 'ADMIN_ROLE' || uid === id) {
 
             next();
 
         } else {
-            //en caso de no serlo no tiene permisos para borrar 
+            // if it is not, it does not have permissions to delete 
             return res.status(403).json({
                 ok: false,
-                msg: 'No tiene privilegios para hacer eso'
+                msg: 'You have no privilege to do that'
             });
         }
     } catch (error) {
         console.log(error);
         res.status(500).json({
             ok: false,
-            msg: 'Hable con el administrador'
+            msg: 'Talk to the administrator'
         })
     }
 
@@ -109,6 +109,6 @@ const varlidarADMIN_ROLE_o_MismoUsuario = async(req, res, next) => {
 
 module.exports = {
     validateJWT,
-    varlidarADMIN_ROLE,
-    varlidarADMIN_ROLE_o_MismoUsuario
+    varlidateADMIN_ROLE,
+    varlidateADMIN_ROLE_or_sameUser
 }

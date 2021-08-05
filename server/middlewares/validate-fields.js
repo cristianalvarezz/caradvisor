@@ -11,7 +11,7 @@ const validateFields = (req, res = response, next) => {
             err: err.mapped()
         });
     }
-    //si llega a este punto continuo 
+
     next();
 
 }

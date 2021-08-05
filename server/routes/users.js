@@ -6,32 +6,28 @@ const {
     getUsers,
     createUser,
     updateUser,
-    deleteUser
+    deleteUser,
 } = require("../controllers/users");
-//importo el paquete  de validaciones
+//I import the validation package
 const { check } = require("express-validator");
 const router = Router();
-//importo validaciones
+//I import validations
 const { validateFields } = require("../middlewares/validate-fields");
-//calidar token
+//validate token
 const {
     validateJWT,
-    varlidarADMIN_ROLE,
-    varlidarADMIN_ROLE_o_MismoUsuario
+    varlidateADMIN_ROLE,
+    varlidateADMIN_ROLE_or_sameUser,
 } = require("../middlewares/validate-jwt");
 
-//obtener usuarios
-router.get(
-    "/",
-    validateJWT,
-    getUsers
-);
-//crear usuario
-//el middleware son funciones que siempre se van a ejecutar
+//get users
+router.get("/", validateJWT, getUsers);
+// create user
+// the middleware are functions that will always be executed   
 router.post(
     "/", [
-        //son varios middle  a ocupar
-        //estos campos no pueden estar vacios
+        // there are several middle to occupy
+        // these fields cannot be empty
         check("name", "mandatory name").not().isEmpty(),
         check("phone", "mandatory name").not().isEmpty(),
         check("password", "mandatory password").not().isEmpty(),
@@ -45,7 +41,8 @@ router.post(
 router.put(
     "/:id", [
         validateJWT,
-        // varlidarADMIN_ROLE_o_MismoUsuario,
+        varlidateADMIN_ROLE_or_sameUser,
+
         check("name", "mandatory name").not().isEmpty(),
         check("phone", "mandatory name").not().isEmpty(),
         check("email", "mandatory email obligatorio").isEmail(),
@@ -54,10 +51,9 @@ router.put(
     updateUser
 );
 //borrar
-router.delete("/:id", [validateJWT,
-    //  varlidarADMIN_ROLE
-], deleteUser)
-
-
+router.delete(
+    "/:id", [validateJWT, varlidateADMIN_ROLE, ],
+    deleteUser
+);
 
 module.exports = router;
