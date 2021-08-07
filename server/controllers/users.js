@@ -12,7 +12,7 @@ const getUsers = async(req, res) => {
     //collection of promises users firs positions of array, total the second
     const [users, total] = await Promise.all([
         // i specify the flieds
-        User.find({}, 'name email role google img')
+        User.find({}, "name email role google img")
         .skip(showpag)
         // argumentos de limite para recibir
         .limit(5),
@@ -74,20 +74,17 @@ const createUser = async(req, res = response) => {
 
 //Update usuario
 const updateUser = async(req, res = response) => {
-
     // TODO: Validar token y comprobar si es el usuario correcto
 
     const uid = req.params.id;
 
-
     try {
-
         const userDB = await User.findById(uid);
 
         if (!userDB) {
             return res.status(404).json({
                 ok: false,
-                msg: 'There is no user for that id'
+                msg: "There is no user for that id",
             });
         }
 
@@ -95,12 +92,11 @@ const updateUser = async(req, res = response) => {
         const { password, google, email, ...campos } = req.body;
 
         if (userDB.email !== email) {
-
             const existEmail = await User.findOne({ email });
             if (existEmail) {
                 return res.status(400).json({
                     ok: false,
-                    msg: 'There is already a user with that email'
+                    msg: "There is already a user with that email",
                 });
             }
         }
@@ -110,27 +106,26 @@ const updateUser = async(req, res = response) => {
         } else if (userDB.email !== email) {
             return res.status(400).json({
                 ok: false,
-                msg: ' Google user cannot change their email'
+                msg: " Google user cannot change their email",
             });
         }
 
-        const updateduser = await User.findByIdAndUpdate(uid, campos, { new: true });
+        const updateduser = await User.findByIdAndUpdate(uid, campos, {
+            new: true,
+        });
 
         res.json({
             ok: true,
-            user: updateduser
+            user: updateduser,
         });
-
-
     } catch (error) {
         console.log(error);
         res.status(500).json({
             ok: false,
-            msg: 'Unexpected error'
-        })
+            msg: "Unexpected error",
+        });
     }
-
-}
+};
 const deleteUser = async(req, res = response) => {
     const uid = req.params.id;
 
@@ -155,10 +150,66 @@ const deleteUser = async(req, res = response) => {
         });
     }
 };
-//no olvida exportar
+
+//Update usuario
+const addfriend = async(req, res = response) => {
+    // TODO: Validar token y comprobar si es el usuario correcto
+    const uid = req.params.id;
+    const campos = req.body;
+    let idfriend = '';
+    Object.entries(campos).forEach(([key, value]) => {
+        idfriend = value;
+    });
+    try {
+        const userDB = await User.findById(uid);
+        try {
+            await User.findById(idfriend);
+        } catch (error) {
+            return res.status(500).json({
+                ok: false,
+                msg: "El amigo a quien intenta agregar no existe",
+            });
+        }
+        if (!userDB) {
+            return res.status(404).json({
+                ok: false,
+                msg: "There is no user for that id",
+            });
+        }
+        if (campos) {
+            const updateduser = await User.findByIdAndUpdate(uid, { friends: idfriend }, {
+                new: true,
+            });
+            res.json({
+                ok: true,
+                user: updateduser
+            });
+        }
+    } catch (error) {
+        return res.status(500).json({
+            ok: false,
+            msg: "Unexpected error",
+        });
+    }
+};
+
+const deletefriend = async(req, res = response) => {
+        const uid = req.params.id;
+        let idfriend = '';
+        Object.entries(campos).forEach(([key, value]) => {
+            idfriend = value;
+        });
+
+        const userDB = await User.findById(uid);
+        console.log(userDB);
+
+    }
+    //no olvida exportar
 module.exports = {
     getUsers,
     createUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    addfriend,
+    deletefriend
 };

@@ -1,6 +1,7 @@
 const { Schema, model } = require('mongoose');
 
 
+
 const UserSchema = Schema({
 
     name: {
@@ -32,6 +33,11 @@ const UserSchema = Schema({
         type: Boolean,
         default: false
     },
+    friends: [{
+        required: false,
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+    }]
 });
 
 

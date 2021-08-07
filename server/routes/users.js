@@ -7,6 +7,7 @@ const {
     createUser,
     updateUser,
     deleteUser,
+    addfriend
 } = require("../controllers/users");
 //I import the validation package
 const { check } = require("express-validator");
@@ -42,13 +43,17 @@ router.put(
     "/:id", [
         validateJWT,
         varlidateADMIN_ROLE_or_sameUser,
-
         check("name", "mandatory name").not().isEmpty(),
         check("phone", "mandatory name").not().isEmpty(),
         check("email", "mandatory email obligatorio").isEmail(),
         validateFields,
     ],
     updateUser
+);
+//agregar amigo
+router.post(
+    "/addfriend/:id", [],
+    addfriend
 );
 //borrar
 router.delete(
