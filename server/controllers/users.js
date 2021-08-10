@@ -157,27 +157,16 @@ const addfriend = async(req, res = response) => {
     const uid = req.params.id;
     const campos = req.body;
     let idfriend = '';
+
     Object.entries(campos).forEach(([key, value]) => {
         idfriend = value;
     });
     try {
-        const userDB = await User.findById(uid);
-        try {
-            await User.findById(idfriend);
-        } catch (error) {
-            return res.status(500).json({
-                ok: false,
-                msg: "El amigo a quien intenta agregar no existe",
-            });
-        }
-        if (!userDB) {
-            return res.status(404).json({
-                ok: false,
-                msg: "There is no user for that id",
-            });
-        }
         if (campos) {
-            const updateduser = await User.findByIdAndUpdate(uid, { friends: idfriend }, {
+            // console.log(campos)
+            // const prueba = User.friends.push(idfriend);
+            // console.log(prueba);
+            const updateduser = await User.findByIdAndUpdate(uid, { $push: { friends: [idfriend] } }, {
                 new: true,
             });
             res.json({
@@ -195,13 +184,17 @@ const addfriend = async(req, res = response) => {
 
 const deletefriend = async(req, res = response) => {
         const uid = req.params.id;
-        let idfriend = '';
+        const campos = req.body;
         Object.entries(campos).forEach(([key, value]) => {
             idfriend = value;
         });
 
         const userDB = await User.findById(uid);
         console.log(userDB);
+        res.json({
+            ok: true,
+            user: campos
+        });
 
     }
     //no olvida exportar

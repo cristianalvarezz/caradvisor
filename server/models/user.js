@@ -1,7 +1,5 @@
 const { Schema, model } = require('mongoose');
 
-
-
 const UserSchema = Schema({
 
     name: {
@@ -37,7 +35,9 @@ const UserSchema = Schema({
         required: false,
         type: Schema.Types.ObjectId,
         ref: 'User',
-    }]
+    }],
+    // acceptfriend: { type: Boolean, defult: true },
+
 });
 
 

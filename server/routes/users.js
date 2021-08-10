@@ -7,18 +7,20 @@ const {
     createUser,
     updateUser,
     deleteUser,
-    addfriend
+    addfriend,
+    deletefriend
 } = require("../controllers/users");
 //I import the validation package
 const { check } = require("express-validator");
 const router = Router();
 //I import validations
 const { validateFields } = require("../middlewares/validate-fields");
-//validate token
+const { validatefriend } = require("../middlewares/validate-friend")
+    //validate token
 const {
     validateJWT,
     varlidateADMIN_ROLE,
-    varlidateADMIN_ROLE_or_sameUser,
+    varlidateADMIN_ROLE_or_sameUser
 } = require("../middlewares/validate-jwt");
 
 //get users
@@ -52,8 +54,15 @@ router.put(
 );
 //agregar amigo
 router.post(
-    "/addfriend/:id", [],
+    "/addfriend/:id", [
+        validatefriend
+    ],
     addfriend
+);
+//eliminar amigo
+router.put(
+    "/deletefriend/:id", [validatefriend],
+    deletefriend
 );
 //borrar
 router.delete(
