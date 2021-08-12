@@ -6,6 +6,15 @@ const UserSchema = Schema({
         type: String,
         required: true
     },
+    surname: {
+        type: String,
+        required: true
+    },
+    nick: {
+        type: String,
+        required: true,
+        unique: true
+    },
     phone: {
         type: String,
         required: true
@@ -17,26 +26,25 @@ const UserSchema = Schema({
     },
     password: {
         type: String,
-        required: true,
+        required: true
     },
-    img: {
+    image: {
         type: String,
     },
-    role: {
+    rol: {
         type: String,
         required: true,
-        default: 'USER_ROLE'
+        default: 'USER_ROLE',
+        emun: ['ADMIN_ROLE', 'USER_ROLE']
+    },
+    status: {
+        type: Boolean,
+        default: true
     },
     google: {
         type: Boolean,
         default: false
     },
-    friends: [{
-        required: false,
-        type: Schema.Types.ObjectId,
-        ref: 'User',
-    }],
-    // acceptfriend: { type: Boolean, defult: true },
 
 });
 

@@ -1,25 +1,30 @@
-const mongoose = require("mongoose");
-require('dotenv').config();
-//funcion encargada de hacer la conexion
+const mongoose = require('mongoose');
+
+
+
 const dbConnection = async() => {
 
     try {
 
-        //esta funcion retorna una promesa
-        await mongoose.connect(process.env.DB_CNN, {
+        await mongoose.connect( process.env.MONGODB_CNN, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
             useCreateIndex: true,
+            useFindAndModify: false
         });
-        console.log('Online database')
+    
+        console.log('Base de datos online');
+
     } catch (error) {
-        console.log(error)
-        throw new Error('Failed to lift the database')
+        console.log(error);
+        throw new Error('Error a la hora de iniciar la base de datos');
     }
 
-};
+
+}
+
+
 
 module.exports = {
-    //estoy exportando la base de datos
     dbConnection
 }
