@@ -9,15 +9,16 @@ const {
     getFollowedUsers
 } = require('../controllers/follow');
 
+const { validateJWT } = require('../middlewares/validate-jwt')
 
-router.post('/', [], saveFollow);
-router.delete('/:id', [], deleteFollow);
+router.post('/', validateJWT, saveFollow);
+router.delete('/:id', validateJWT, deleteFollow);
 
-router.get('/get-my-follows', [], getMyFollows);
-router.get('/get-follow-backs', [], getFollowBacks);
+router.get('/get-my-follows', validateJWT, getMyFollows);
+router.get('/get-follow-backs', validateJWT, getFollowBacks);
 
-router.get('/following/:id?/:page?', [], getFollowingUsers);
-router.get('/followed/:id?/:page?', [], getFollowedUsers);
+router.get('/following/:id?/:page?', validateJWT, getFollowingUsers);
+router.get('/followed/:id?/:page?', validateJWT, getFollowedUsers);
 
 
 

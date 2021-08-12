@@ -13,7 +13,8 @@ class Server {
         this.paths = {
                 user: '/api/user',
                 auth: '/api/auth',
-                follow: '/api/follow'
+                follow: '/api/follow',
+                message: '/api/message'
             }
             // Conectar a base de datos
         this.conectarDB();
@@ -36,6 +37,8 @@ class Server {
         //follow
         this.app.use(this.paths.follow, require('../routes/follow'))
 
+        //mesagge 
+        this.app.use(this.paths.message, require('../routes/message'))
 
     }
 
