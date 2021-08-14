@@ -14,7 +14,8 @@ class Server {
                 user: '/api/user',
                 auth: '/api/auth',
                 follow: '/api/follow',
-                message: '/api/message'
+                message: '/api/message',
+                publication: '/api/publication'
             }
             // Conectar a base de datos
         this.conectarDB();
@@ -40,16 +41,16 @@ class Server {
         //mesagge 
         this.app.use(this.paths.message, require('../routes/message'))
 
+
+        //publication 
+        this.app.use(this.paths.publication, require('../routes/publication'))
     }
 
     middlewares() {
-
         // CORS
         this.app.use(cors());
-
         // Lectura y parseo del body
         this.app.use(express.json());
-
     }
 
     listen() {

@@ -12,6 +12,7 @@ const followSchema = Schema({
         type: Schema.Types.ObjectId,
         ref: 'User',
     }
+
 });
 
 
