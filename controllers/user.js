@@ -6,7 +6,7 @@ const User = require('../models/user');
 /*** Método de Inicio ***/
 const home = async(req = request, res = response) => {
     res.json({
-        mensaje: "Hola mundo"
+        mensaje: "Hola "
     });
 }
 
