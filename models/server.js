@@ -18,7 +18,13 @@ class Server {
                 publication: '/api/publication'
             }
             // Conectar a base de datos
-        this.conectarDB();
+
+        try {
+            this.conectarDB();
+        } catch (error) {
+            console.log(error);
+            throw new Error('Error a la hora de iniciar la base de datos');
+        }
         // Rutas de mi aplicación
         this.routes();
 
