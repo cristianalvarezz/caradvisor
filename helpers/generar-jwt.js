@@ -7,7 +7,6 @@ const generarJWT = (uid = '') => {
     return new Promise((resolve, reject) => {
 
         const payload = { uid };
-        console.log(Object.values('Holsdj28397kjHd7@asdyui3897k'));
         jwt.sign(payload, 'Holsdj28397kjHd7@asdyui3897k', {
             expiresIn: '4h'
         }, (err, token) => {

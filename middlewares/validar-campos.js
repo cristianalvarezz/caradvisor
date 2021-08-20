@@ -4,6 +4,7 @@ const { validationResult } = require('express-validator');
 const validarCampos = (req, res, next) => {
 
     const errors = validationResult(req);
+
     if (!errors.isEmpty()) {
         return res.status(400).json(errors);
     }
@@ -12,13 +13,14 @@ const validarCampos = (req, res, next) => {
 }
 const esAdminRole = (req, res = response, next) => {
 
-    if (!req.usuario) {
+
+    if (!req.body) {
         return res.status(500).json({
             msg: 'Se quiere verificar el role sin validar el token primero'
         });
     }
 
-    const { rol, nombre } = req.usuario;
+    const { rol, nombre } = req.body;
 
     if (rol !== 'ADMIN_ROLE') {
         return res.status(401).json({

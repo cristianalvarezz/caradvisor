@@ -7,7 +7,7 @@ class Server {
     constructor() {
         this.app = express();
 
-        this.port = process.env.PORT;
+        this.port = process.env.PORT || 8080;
 
         this.app.use(express.json());
         this.paths = {
@@ -15,7 +15,8 @@ class Server {
                 auth: '/api/auth',
                 follow: '/api/follow',
                 message: '/api/message',
-                publication: '/api/publication'
+                publication: '/api/publication',
+                search: '/api/search'
             }
             // Conectar a base de datos
 
@@ -50,6 +51,10 @@ class Server {
 
         //publication 
         this.app.use(this.paths.publication, require('../routes/publication'))
+
+        //search 
+        this.app.use(this.paths.search, require('../routes/search'))
+
     }
 
     middlewares() {
