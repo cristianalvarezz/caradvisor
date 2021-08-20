@@ -8,7 +8,6 @@ const validateJWT = async(req = request, res = response, next) => {
 
 
     const token = req.header('x-token');
-
     if (!token) {
         return res.status(401).json({
             msg: 'No hay token en la petición'
@@ -16,10 +15,10 @@ const validateJWT = async(req = request, res = response, next) => {
     }
 
     try {
-        const { uid } = jwt.verify(token, `Holsdj28397kjHd7@asdyui3897k`);
-
+        const { uid } = jwt.verify(token, 'Holsdj28397kjHd7@asdyui3897k');
         // leer el usuario que corresponde al uid
         const user = await User.findById(uid);
+
 
         if (!user) {
             return res.status(401).json({
@@ -28,7 +27,7 @@ const validateJWT = async(req = request, res = response, next) => {
         }
 
         // Verificar si el uid tiene estado true
-        if (!user.estado) {
+        if (!user.status) {
             return res.status(401).json({
                 msg: 'Token no válido - usuario con estado: false'
             })

@@ -19,7 +19,7 @@ const emailExiste = async(email = '') => {
 }
 const nickExiste = async(nick = '') => {
 
-    // Verificar si el correo existe
+    console.log(nick)
     const existenick = await User.findOne({ nick });
     if (existenick) {
         throw new Error(`El nick: ${ nick }, ya está registrado`);
@@ -41,4 +41,5 @@ module.exports = {
     esRoleValido,
     emailExiste,
     existeUsuarioPorId,
+    nickExiste
 }
