@@ -41,7 +41,7 @@ router.put(
 
 router.delete('/:id', [
         // validarJWT,
-        esAdminRole,
+        // esAdminRole,
         check('id', 'No es un ID válido').isMongoId(),
         check('id').custom(existeUsuarioPorId),
         validarCampos

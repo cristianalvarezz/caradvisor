@@ -16,7 +16,7 @@ const validateJWT = async(req = request, res = response, next) => {
     }
 
     try {
-        const { uid } = jwt.verify(token, `Holsdj28397kjHd7@asdyui3897k`);
+        const { uid } = jwt.verify(token, 'Holsdj28397kjHd7@asdyui3897k');
 
         // leer el usuario que corresponde al uid
         const user = await User.findById(uid);
