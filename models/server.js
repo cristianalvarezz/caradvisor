@@ -8,6 +8,7 @@ class Server {
         this.app = express();
 
         this.port = process.env.PORT || 8080;
+        this.app.use(cors());
 
         this.app.use(express.json());
         this.paths = {
@@ -19,7 +20,6 @@ class Server {
                 search: '/api/search'
             }
             // Conectar a base de datos
-
         try {
             this.conectarDB();
         } catch (error) {
