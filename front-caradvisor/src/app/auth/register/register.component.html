@@ -1,0 +1,58 @@
+<!-- ============================================================== -->
+<!-- Main wrapper - style you can find in pages.scss -->
+<!-- ============================================================== -->
+<section id="wrapper" class="login-register login-sidebar" style="background-image:url(../assets/images/background/gara.jpg);">
+    <div class="login-box card">
+        <div class="card-body">
+            <form class="form-horizontal form-material" id="loginform" action="index.html" autocomplete="off" [formGroup]="registerForm" (ngSubmit)="createUser()">
+                <h3 class="box-title m-t-5 m-b-0">Register Now</h3><small>Create your account and enjoy</small>
+                <div class="form-group  m-t-20">
+                    <div class="col-xs-12">
+                        <input class="form-control m-b-5" type="text" required="" placeholder="Name" formControlName="name">
+                    </div>
+                    <div class="col-xs-12">
+                        <input class="form-control m-b-5" type="text" required="" placeholder="Surname" formControlName="surname">
+                    </div>
+                    <div class="col-xs-12">
+                        <input class="form-control m-b-5" type="text" required="" placeholder="Nick" formControlName="nick">
+                    </div>
+                    <div class="col-xs-12">
+                        <input class="form-control m-b-5" type="text" required="" placeholder="Phone" formControlName="phone">
+                    </div>
+                    <div class="col-xs-12">
+                        <input class="form-control m-b-5" type="text" required="" placeholder="Email" formControlName="email">
+                    </div>
+                    <div class="col-xs-12">
+                        <input class="form-control m-b-5" type="password" required="" placeholder="Password" formControlName="password">
+                    </div>
+                    <div class="col-xs-12">
+                        <input class="form-control m-b-5" type="password" required="" placeholder="Confirm Password" formControlName="password2">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col text-danger">
+                        <p *ngIf="campoNoValido('name')">* El nombre es obligatorio</p>
+                        <p *ngIf="campoNoValido('surname')">* El surname es obligatorio</p>
+                        <p *ngIf="campoNoValido('nick')">* El nick es obligatorio</p>
+                        <p *ngIf="campoNoValido('phone')">* El phone es obligatorio</p>
+                        <p *ngIf="campoNoValido('email')">* El email es obligatorio y tiene que ser válido</p>
+                        <p *ngIf="contrasenasNoValidas()">* Las contraseñas deben de ser iguales</p>
+                    </div>
+                </div>
+                <div class="form-group text-center m-t-20">
+                    <div class="col-xs-12">
+                        <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Sign Up</button>
+                    </div>
+                </div>
+                <div class="form-group m-b-0">
+                    <div class="col-sm-12 text-center">
+                        <p>Already have an account? <a routerLink="/login" class="text-info m-l-5"><b>Sign In</b></a></p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<!-- ============================================================== -->
+<!-- End Wrapper -->
+<!-- ============================================================== -->
