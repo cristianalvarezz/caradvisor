@@ -1,0 +1,30 @@
+<div class="card ">
+    <h3 class="card-header">Publicar...</h3>
+    <div class="card-body">
+        <!-- Resultado del envío del FORMULARIO -->
+        <div class="alert alert-dismissible alert-danger" *ngIf="status == 'error'">
+            <button type="button" class="close" data-dismiss="alert">&times;</button> FALLO en la publicación!!!
+        </div>
+        <!-- FIN Resultado del envío del FORMULARIO -->
+        <form #newPubForm="ngForm" (ngSubmit)=' onSubmit(newPubForm, $event); '>
+            <p>
+                <label>¿Qué estás pensando?</label>
+                <textarea name="text" #text="ngModel" [(ngModel)]="publication.text" class="form-control" required></textarea>
+                <span class="text-danger" *ngIf="!text.valid && text.touched" class="text-danger">
+					El texto de la publicación es obligatorio!!
+				</span>
+            </p>
+
+            <div class="card">
+                <label class="custom-file-upload">
+                    <input type="file"/>
+                    Subir archivo
+                  </label>
+            </div>
+
+            <div class="derecha">
+                <input type="submit" value="Publicar" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>

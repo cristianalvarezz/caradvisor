@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  base_url: 'https://caradvisorr.herokuapp.com/api/'
+  base_url: 'http://localhost:8080/api/'
 };
 
 /*

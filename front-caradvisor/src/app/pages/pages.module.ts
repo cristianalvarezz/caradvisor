@@ -10,8 +10,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 
 import { PagesComponent } from './pages.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
-import { PromesasComponent } from './promesas/promesas.component';
-import { RxjsComponent } from './rxjs/rxjs.component';
+
+import { ProfileComponent } from './profile/profile.component';
+import { ComponentModule } from '../component/component.module';
+import { PublicationComponent } from './publication/publication.component';
 
 
 
@@ -19,23 +21,24 @@ import { RxjsComponent } from './rxjs/rxjs.component';
 @NgModule({
   declarations: [
     DashboardComponent,
-
     PagesComponent,
     AccountSettingsComponent,
-    PromesasComponent,
-    RxjsComponent
+    ProfileComponent,
+    PublicationComponent
   ],
   exports: [
     DashboardComponent,
     PagesComponent,
     AccountSettingsComponent,
-  
   ],
   imports: [ 
     CommonModule,
     FormsModule,
     SharedModule,
-    RouterModule
+    RouterModule,
+    ComponentModule,
+
+ 
   ]
 })
 export class PagesModule { }

@@ -1,0 +1,80 @@
+<div class="card-body">
+    <div class="profiletimeline">
+        <div *ngIf="publications; then hay; else nohay"></div>
+        <hr />
+        <ng-template #hay>
+            <div *ngFor="let publication of publications">
+
+                <div class="sl-item">
+                    <div class="sl-left">
+                        <img src="../assets/images/users/2.jpg" alt="user" class="img-circle" />
+                    </div>
+                    <div class="sl-right">
+                        <div>
+                            <a href="#" class="link">{{ publication.user.name }}</a>
+                            <br />
+                            <span class="sl-date">{{ publication.created_at }}</span>
+                            <div class="m-t-20 row">
+                                <div class="col-md-3 col-xs-12">
+                                    <img src="../assets/images/big/img1.jpg" alt="user" class="img-responsive radius" />
+                                </div>
+                                <div class="col-md-9 col-xs-12">
+                                    <p>
+                                        {{ publication.text }}
+                                    </p>
+                                    <a href="#" class="btn btn-success"> Design weblayout</a>
+                                </div>
+                            </div>
+                            <div class="like-comm m-t-20">
+                                <!-- <a href="javascript:void(0)" class="link m-r-10">2 comment</a>
+                                <a href="javascript:void(0)" class="link m-r-10"><i class="fa fa-heart text-danger"></i> 5 Love</a> -->
+
+                            </div>
+                            <a class="btn btn-danger button-trash" data-toggle="modal" href="#deletePub{{publication.uid}}" role="button">
+                                <span class="mdi mdi-eraser"></span>
+                            </a>
+                            <!-- Modal HTML -->
+                            <div id="deletePub{{publication.uid}}" class="modal fade">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">¿Seguro que quieres eliminar la publicación?</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p class="crop text-muted"><em>"{{publication.text}}"</em></p>
+                                            <p>Si la borras no podrás recuperarla.</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deletePublication(publication.uid)">Borrar la publicación</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p class="center">
+                <button class="btn btn-success" (click)="viewMore()" *ngIf="!noMore">
+          Ver más publicaciones
+        </button>
+            </p>
+        </ng-template>
+        <ng-template #nohay>
+            <div class="publication-card border-danger col-lg-12">
+                <div class="card-header">
+                    <h4 class="publication-user">El TIMELINE está vacío!!!</h4>
+                </div>
+                <div class="card-body">
+                    <h5>Parece que este usuario no ha publicado nada todavía.</h5>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+
+
+</div>

@@ -13,13 +13,13 @@ export class RegisterComponent implements OnInit {
   public formSubmitted = false;
 
   public registerForm = this.fb.group({
-    name: ['', Validators.required],
-    surname: ['', Validators.required],
-    nick: ['', Validators.required],
-    phone: ['', Validators.required],
-    email: ['', Validators.required],
-    password: ['', Validators.required],
-    password2: ['', Validators.required],
+    name: ['admin', Validators.required],
+    surname: ['admin', Validators.required],
+    nick: ['admin', Validators.required],
+    phone: ['1234567', Validators.required],
+    email: ['admin@gmail.com', Validators.required],
+    password: ['123456', Validators.required],
+    password2: ['123456', Validators.required],
   });
   constructor(
     private fb: FormBuilder,
@@ -34,6 +34,7 @@ export class RegisterComponent implements OnInit {
     if (this.registerForm.invalid) {
       return;
     }
+   
     this.userService.createUser(this.registerForm.value).subscribe(
       (resp: any) => {
         console.log(resp);

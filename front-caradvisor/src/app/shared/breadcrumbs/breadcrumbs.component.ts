@@ -18,7 +18,6 @@ export class BreadcrumbsComponent implements OnDestroy {
   constructor( private router: Router, private route: ActivatedRoute ) {
 
     this.tituloSubs$ = this.getArgumentosRuta()
-      //aqui extraigo el titulo 
                         .subscribe( ({ titulo }) => {
                             this.titulo = titulo;
                             document.title = `AdminPro - ${ titulo }`;
@@ -32,14 +31,9 @@ export class BreadcrumbsComponent implements OnDestroy {
   getArgumentosRuta() {
 
     return this.router.events
-    
       .pipe(
-        // todo esto se dispara en un evento llamado activationEnd 
-        //todos estos filtros los utilizo para conseguir solo el titulo
         filter( (event:any) => event instanceof ActivationEnd ),
-        //este filtro se va a aplicar al que tenga datos en el firs child
-        filter( (event: ActivationEnd) => console.log(event.snapshot.firstChild) === null  ),
-      //cuando tengo ya el titulo 
+        filter( (event: ActivationEnd) => event.snapshot.firstChild === null  ),
         map( (event: ActivationEnd) => event.snapshot.data ),
       );
   }
