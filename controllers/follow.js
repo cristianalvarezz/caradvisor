@@ -4,6 +4,8 @@ const User = require('../models/user');
 const mongoosePaginate = require('mongoose-pagination');
 
 const saveFollow = async(req = request, res = response) => {
+
+   
     const { user, followed } = req.body;
 
     const follow = new Follow(req.body);
@@ -22,9 +24,10 @@ const saveFollow = async(req = request, res = response) => {
 }
 const deleteFollow = async(req = request, res = response) => {
     const { user } = req.body;
-    const { id } = req.params;
+    const { id_user, id_followed  } = req.params;
+    
 
-    Follow.find({ 'user': user, 'followed': id }).remove(async(err, result) => {
+    Follow.find({ 'user': id_user, 'followed': id_followed }).remove(async(err, result) => {
         if (err) return res.status(500).send({ message: 'ERROR al borrar el follow!!!' });
         if (result) return res.status(200).send({ message: 'El follow se ha eliminado' });
     });

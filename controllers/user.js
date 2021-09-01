@@ -97,6 +97,7 @@ const getUsers = async(req, res = response) => {
     });
 }
 const getUser = async(req, res = response) => {
+
         var user_id = req.params.id;
         const { identity_user_id } = req.body;
         //eliminamos password al devolver el usuario
@@ -112,7 +113,7 @@ const getUser = async(req, res = response) => {
             	return res.status(200).send({user, follow});
             });*/
 
-            followThisUser(identity_user_id, user_id).then((value) => {
+            followThisUser(user_id, user_id).then((value) => {
                 return res.status(200).send({ user, followed: value.followed, following: value.following });
             });
         });

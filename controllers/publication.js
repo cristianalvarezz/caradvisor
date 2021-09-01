@@ -92,10 +92,9 @@ const getPublication = async(req = request, res = response) => {
 }
 
 const deletePublication = async(req = request, res = response) => {
-    var publication_id = req.params.id;
-    const { user } = req.body;
-
-    Publication.findOneAndRemove({ user: user, '_id': publication_id }, (err, publicationRemoved) => {
+    var id_user = req.params.id_user;
+    var id_publication = req.params.id_publication;
+    Publication.findOneAndRemove({ user: id_user, '_id': id_publication }, (err, publicationRemoved) => {
         if (err) return res.status(500).send({ message: 'ERROR al borrar la publicacion!!!' });
         if (!publicationRemoved) res.status(404).send({ message: 'NO se ha borrado la publicación!! Comprueba que seas su autor.' });
 

@@ -13,7 +13,7 @@ const {
 const { validateJWT } = require('../middlewares/validate-jwt')
 
 router.post('/', validateJWT, saveFollow);
-router.delete('/:id', validateJWT, deleteFollow);
+router.delete('/:id_user/:id_followed', validateJWT, deleteFollow);
 
 router.get('/get-my-follows', validateJWT, getMyFollows);
 router.get('/get-follow-backs', validateJWT, getFollowBacks);

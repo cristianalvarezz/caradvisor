@@ -22,6 +22,7 @@ class Server {
 
         try {
             this.conectarDB();
+            this.app.use(cors());
         } catch (error) {
             console.log(error);
             throw new Error('Error a la hora de iniciar la base de datos');

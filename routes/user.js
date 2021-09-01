@@ -49,7 +49,9 @@ router.delete('/:id', [
     ],
     userDelete);
 
-router.get('/:page?', [], getUsers);
-router.get('/:id', [], getUser);
+router.get('/a/:page?', validateJWT, getUsers);
+
+
+router.get('/b/:id', validateJWT, getUser);
 
 module.exports = router;
